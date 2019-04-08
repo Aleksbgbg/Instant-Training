@@ -18,6 +18,12 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="InstantTraining.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="InstantTraining.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B301490A-DD4B-485F-9003-9025984FFE9C}</ProjectGuid>
