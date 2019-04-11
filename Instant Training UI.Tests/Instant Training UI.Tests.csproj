@@ -72,6 +72,7 @@
     <Compile Include="Converters\ArenaNameToImageConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtil\ConverterExtensions.cs" />
+    <Compile Include="ViewModels\ArenaDisplayViewModelTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
     <Compile Include="ViewModels\ShellViewModelTests.cs" />
   </ItemGroup>
