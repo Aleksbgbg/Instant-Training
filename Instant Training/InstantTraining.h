@@ -11,5 +11,21 @@ public:
 	void onUnload() override;
 
 private:
-	void OnGameEnded() const;
+	void OnMatchEnded() const;
+
+	void PluginEnabledChanged();
+
+	void HookMatchEnded();
+	void UnhookMatchEnded();
+
+	void LogHookType(const char* const hookType) const;
+
+private:
+	static constexpr const char* MatchEndedEvent = "Function TAGame.GameEvent_Soccar_TA.EventMatchEnded";
+
+	static constexpr const char* EnabledCvarName = "enabled";
+	static constexpr const char* TrainingMapCvarName = "training_map";
+
+private:
+	bool hooked = false;
 };
