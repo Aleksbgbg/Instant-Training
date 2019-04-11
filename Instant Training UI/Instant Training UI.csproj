@@ -169,8 +169,8 @@
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\ARC_Standard.png" />
     <Resource Include="Images\ARC.png" />
-    <Resource Include="Images\ARCtagon.png" />
     <Resource Include="Images\Beach.jpg" />
     <Resource Include="Images\Farm.png" />
     <Resource Include="Images\HoopsStadium.png" />
@@ -199,6 +199,9 @@
     <Resource Include="Images\UtopiaStadium_Dusk.jpg" />
     <Resource Include="Images\UtopiaStadium_Snow.jpg" />
     <Resource Include="Images\Wasteland.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

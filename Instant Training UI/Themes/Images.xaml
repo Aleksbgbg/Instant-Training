@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <BitmapImage x:Key="ARC" UriSource="/Images/ARC.png"/>
-    <BitmapImage x:Key="ARCtagon" UriSource="/Images/ARCtagon.png"/>
+    <BitmapImage x:Key="ARC_Standard" UriSource="/Images/ARC_Standard.png"/>
     <BitmapImage x:Key="Beach" UriSource="/Images/Beach.jpg"/>
     <BitmapImage x:Key="Farm" UriSource="/Images/Farm.png"/>
     <BitmapImage x:Key="HoopsStadium" UriSource="/Images/HoopsStadium.png"/>
@@ -12,6 +12,7 @@
     <BitmapImage x:Key="Labs_Utopia" UriSource="/Images/Labs_Utopia.png"/>
     <BitmapImage x:Key="NeoTokyo" UriSource="/Images/NeoTokyo.png"/>
     <BitmapImage x:Key="NeoTokyo_Standard" UriSource="/Images/NeoTokyo_Standard.png"/>
+    <BitmapImage x:Key="Next" UriSource="/Images/Next.png"/>
     <BitmapImage x:Key="Park" UriSource="/Images/Park.png"/>
     <BitmapImage x:Key="Park_Night" UriSource="/Images/Park_Night.png"/>
     <BitmapImage x:Key="Park_Rainy" UriSource="/Images/Park_Rainy.png"/>
