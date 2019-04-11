@@ -27,9 +27,18 @@
                    Text="{Binding ArenaName}"/>
 
         <Button Grid.Row="1"
+                Grid.Column="0"
                 Margin="5"
                 Caliburn:Message.Attach="SelectPreviousArena"
-                Content="Previous"/>
+                Style="{StaticResource Button.Image}">
+            <Image Height="20"
+                   RenderTransformOrigin="0.5, 0.5"
+                   Source="{StaticResource Next}">
+                <Image.RenderTransform>
+                    <ScaleTransform ScaleX="-1"/>
+                </Image.RenderTransform>
+            </Image>
+        </Button>
 
         <Image Grid.Row="1"
                Grid.Column="1"
@@ -40,6 +49,8 @@
                 Grid.Column="2"
                 Margin="5"
                 Caliburn:Message.Attach="SelectNextArena"
-                Content="Next"/>
+                Style="{StaticResource Button.Image}">
+            <Image Height="20" Source="{StaticResource Next}"/>
+        </Button>
     </Grid>
 </UserControl>
