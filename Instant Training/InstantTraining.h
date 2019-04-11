@@ -23,8 +23,8 @@ private:
 private:
 	static constexpr const char* MatchEndedEvent = "Function TAGame.GameEvent_Soccar_TA.EventMatchEnded";
 
-	static constexpr const char* EnabledCvarName = "enabled";
-	static constexpr const char* TrainingMapCvarName = "training_map";
+	static constexpr const char* EnabledCvarName = "instant_training_enabled";
+	static constexpr const char* TrainingMapCvarName = "instant_training_map";
 
 private:
 	bool hooked = false;

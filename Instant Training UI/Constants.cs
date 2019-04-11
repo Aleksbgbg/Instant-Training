@@ -9,9 +9,9 @@
 
         public static class Mod
         {
-            public const string EnabledCvar = "enabled";
+            public const string EnabledCvar = "instant_training_enabled";
 
-            public const string TrainingMapCvar = "training_map";
+            public const string TrainingMapCvar = "instant_training_map";
 
             public const string MapSuffix = "_P";
         }
