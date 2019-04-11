@@ -87,8 +87,12 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\ArenaDevNameToInGameNameConverter.cs" />
     <Compile Include="Converters\ArenaNameToImageConverter.cs" />
+    <Compile Include="Services\Interfaces\IRconService.cs" />
+    <Compile Include="Services\RconService.cs" />
     <Compile Include="Utilities\IResourceLocator.cs" />
+    <Compile Include="Utilities\IWebSocket.cs" />
     <Compile Include="Utilities\ResourceLocator.cs" />
+    <Compile Include="Utilities\WebSocketAdapter.cs" />
     <Compile Include="ViewModels\ArenaDisplayViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IArenaDisplayViewModel.cs" />
     <Compile Include="Views\ArenaDisplayView.xaml.cs">
@@ -170,7 +174,6 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Models\" />
-    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ARC_Standard.png" />

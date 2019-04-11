@@ -1,15 +1,19 @@
 ﻿namespace Instant.Training.UI.ViewModels
 {
+    using Instant.Training.UI.Services.Interfaces;
     using Instant.Training.UI.ViewModels.Interfaces;
 
     public class ArenaDisplayViewModel : ViewModelBase, IArenaDisplayViewModel
     {
         private static readonly int ArenaNamesLength = Constants.ArenaDevNames.Length;
 
+        private readonly IRconService _rconService;
+
         private int _arenaIndex;
 
-        public ArenaDisplayViewModel()
+        public ArenaDisplayViewModel(IRconService rconService)
         {
+            _rconService = rconService;
             _arenaIndex = 0;
 
             PickArenaNameFromIndex();
@@ -26,6 +30,8 @@
 
                 _arenaName = value;
                 NotifyOfPropertyChange(nameof(ArenaName));
+
+                _rconService.TransmitTrainingMap(_arenaName);
             }
         }
 

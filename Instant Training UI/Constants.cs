@@ -7,6 +7,24 @@
     {
         public const string AppName = "Rocket League Instant Training Mod";
 
+        public static class Mod
+        {
+            public const string EnabledCvar = "enabled";
+
+            public const string TrainingMapCvar = "training_map";
+
+            public const string MapSuffix = "_P";
+        }
+
+        public static class RCON
+        {
+            public const string Host = "127.0.0.1";
+
+            public const int Port = 9002;
+
+            public const string Password = "password";
+        }
+
         public static readonly Dictionary<string, string> ArenaDevToInGameNameMappings = new Dictionary<string, string>
         {
             ["ARC"] = "ARCtagon",
