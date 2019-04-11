@@ -154,10 +154,41 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Images\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Utilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ARC.png" />
+    <Resource Include="Images\ARCtagon.png" />
+    <Resource Include="Images\Beach.jpg" />
+    <Resource Include="Images\Farm.png" />
+    <Resource Include="Images\HoopsStadium.png" />
+    <Resource Include="Images\Labs_CirclePillars.png" />
+    <Resource Include="Images\Labs_Cosmic.png" />
+    <Resource Include="Images\Labs_DoubleGoal.png" />
+    <Resource Include="Images\Labs_Octagon.png" />
+    <Resource Include="Images\Labs_Underpass.jpg" />
+    <Resource Include="Images\Labs_Utopia.png" />
+    <Resource Include="Images\NeoTokyo.png" />
+    <Resource Include="Images\NeoTokyo_Standard.png" />
+    <Resource Include="Images\Park.png" />
+    <Resource Include="Images\Park_Night.png" />
+    <Resource Include="Images\Park_Rainy.png" />
+    <Resource Include="Images\ShatterShot.png" />
+    <Resource Include="Images\Stadium.png" />
+    <Resource Include="Images\Stadium_Day.png" />
+    <Resource Include="Images\Stadium_Foggy.png" />
+    <Resource Include="Images\Stadium_Winter.png" />
+    <Resource Include="Images\ThrowbackStadium.jpg" />
+    <Resource Include="Images\TrainStation.png" />
+    <Resource Include="Images\TrainStation_Dawn.png" />
+    <Resource Include="Images\TrainStation_Night.png" />
+    <Resource Include="Images\Underwater.png" />
+    <Resource Include="Images\UtopiaStadium.jpg" />
+    <Resource Include="Images\UtopiaStadium_Dusk.jpg" />
+    <Resource Include="Images\UtopiaStadium_Snow.jpg" />
+    <Resource Include="Images\Wasteland.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,3 +1,32 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BitmapImage x:Key="ARC" UriSource="/Images/ARC.png"/>
+    <BitmapImage x:Key="ARCtagon" UriSource="/Images/ARCtagon.png"/>
+    <BitmapImage x:Key="Beach" UriSource="/Images/Beach.jpg"/>
+    <BitmapImage x:Key="Farm" UriSource="/Images/Farm.png"/>
+    <BitmapImage x:Key="HoopsStadium" UriSource="/Images/HoopsStadium.png"/>
+    <BitmapImage x:Key="Labs_CirclePillars" UriSource="/Images/Labs_CirclePillars.png"/>
+    <BitmapImage x:Key="Labs_Cosmic" UriSource="/Images/Labs_Cosmic.png"/>
+    <BitmapImage x:Key="Labs_DoubleGoal" UriSource="/Images/Labs_DoubleGoal.png"/>
+    <BitmapImage x:Key="Labs_Octagon" UriSource="/Images/Labs_Octagon.png"/>
+    <BitmapImage x:Key="Labs_Underpass" UriSource="/Images/Labs_Underpass.jpg"/>
+    <BitmapImage x:Key="Labs_Utopia" UriSource="/Images/Labs_Utopia.png"/>
+    <BitmapImage x:Key="NeoTokyo" UriSource="/Images/NeoTokyo.png"/>
+    <BitmapImage x:Key="NeoTokyo_Standard" UriSource="/Images/NeoTokyo_Standard.png"/>
+    <BitmapImage x:Key="Park" UriSource="/Images/Park.png"/>
+    <BitmapImage x:Key="Park_Night" UriSource="/Images/Park_Night.png"/>
+    <BitmapImage x:Key="Park_Rainy" UriSource="/Images/Park_Rainy.png"/>
+    <BitmapImage x:Key="ShatterShot" UriSource="/Images/ShatterShot.png"/>
+    <BitmapImage x:Key="Stadium" UriSource="/Images/Stadium.png"/>
+    <BitmapImage x:Key="Stadium_Day" UriSource="/Images/Stadium_Day.png"/>
+    <BitmapImage x:Key="Stadium_Foggy" UriSource="/Images/Stadium_Foggy.png"/>
+    <BitmapImage x:Key="Stadium_Winter" UriSource="/Images/Stadium_Winter.png"/>
+    <BitmapImage x:Key="ThrowbackStadium" UriSource="/Images/ThrowbackStadium.jpg"/>
+    <BitmapImage x:Key="TrainStation" UriSource="/Images/TrainStation.png"/>
+    <BitmapImage x:Key="TrainStation_Dawn" UriSource="/Images/TrainStation_Dawn.png"/>
+    <BitmapImage x:Key="TrainStation_Night" UriSource="/Images/TrainStation_Night.png"/>
+    <BitmapImage x:Key="Underwater" UriSource="/Images/Underwater.png"/>
+    <BitmapImage x:Key="UtopiaStadium" UriSource="/Images/UtopiaStadium.jpg"/>
+    <BitmapImage x:Key="UtopiaStadium_Dusk" UriSource="/Images/UtopiaStadium_Dusk.jpg"/>
+    <BitmapImage x:Key="UtopiaStadium_Snow" UriSource="/Images/UtopiaStadium_Snow.jpg"/>
+    <BitmapImage x:Key="Wasteland" UriSource="/Images/Wasteland.png"/>
 </ResourceDictionary>
