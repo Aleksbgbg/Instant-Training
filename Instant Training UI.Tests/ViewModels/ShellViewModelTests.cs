@@ -25,5 +25,11 @@
         {
             Assert.Equal(Constants.AppName, _shellViewModel.DisplayName);
         }
+
+        [Fact]
+        public void TestMainViewModelAssigned()
+        {
+            Assert.Equal(_mainViewModelMock.Object, _shellViewModel.MainViewModel);
+        }
     }
 }

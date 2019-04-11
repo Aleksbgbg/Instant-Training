@@ -11,6 +11,7 @@
         {
             Container.Singleton<IShellViewModel, ShellViewModel>();
             Container.Singleton<IMainViewModel, MainViewModel>();
+            Container.Singleton<IArenaDisplayViewModel, ArenaDisplayViewModel>();
         }
     }
 }

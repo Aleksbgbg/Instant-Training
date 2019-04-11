@@ -4,5 +4,11 @@
 
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
+        public MainViewModel(IArenaDisplayViewModel arenaDisplayViewModel)
+        {
+            ArenaDisplayViewModel = arenaDisplayViewModel;
+        }
+
+        public IArenaDisplayViewModel ArenaDisplayViewModel { get; }
     }
 }
