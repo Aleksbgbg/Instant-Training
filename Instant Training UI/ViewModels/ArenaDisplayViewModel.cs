@@ -4,7 +4,7 @@
 
     public class ArenaDisplayViewModel : ViewModelBase, IArenaDisplayViewModel
     {
-        private static readonly int ArenaNamesLength = Constants.ArenaNames.Length;
+        private static readonly int ArenaNamesLength = Constants.ArenaDevNames.Length;
 
         private int _arenaIndex;
 
@@ -45,7 +45,7 @@
 
         private void PickArenaNameFromIndex()
         {
-            ArenaName = Constants.ArenaNames[_arenaIndex];
+            ArenaName = Constants.ArenaDevNames[_arenaIndex];
         }
     }
 }

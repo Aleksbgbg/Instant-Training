@@ -16,7 +16,7 @@
         [Fact]
         public void TestDefaultArenaIsIndexZero()
         {
-            Assert.Equal(Constants.ArenaNames[0], _arenaDisplayViewModel.ArenaName);
+            Assert.Equal(Constants.ArenaDevNames[0], _arenaDisplayViewModel.ArenaName);
         }
 
         [Fact]
@@ -39,18 +39,18 @@
 
             CallNextArenaTimes(expectedArenaIndex);
 
-            Assert.Equal(Constants.ArenaNames[expectedArenaIndex], _arenaDisplayViewModel.ArenaName);
+            Assert.Equal(Constants.ArenaDevNames[expectedArenaIndex], _arenaDisplayViewModel.ArenaName);
         }
 
         [Fact]
         public void TestNextArenaWrapsIndex()
         {
-            int arenaCount = Constants.ArenaNames.Length;
+            int arenaCount = Constants.ArenaDevNames.Length;
             int requiredArenaIndex = arenaCount + 10;
 
             CallNextArenaTimes(requiredArenaIndex);
 
-            Assert.Equal(Constants.ArenaNames[requiredArenaIndex % arenaCount], _arenaDisplayViewModel.ArenaName);
+            Assert.Equal(Constants.ArenaDevNames[requiredArenaIndex % arenaCount], _arenaDisplayViewModel.ArenaName);
         }
 
         [Fact]
@@ -61,17 +61,17 @@
             _arenaDisplayViewModel.SelectNextArena();
             _arenaDisplayViewModel.SelectPreviousArena();
 
-            Assert.Equal(Constants.ArenaNames[expectedArenaIndex], _arenaDisplayViewModel.ArenaName);
+            Assert.Equal(Constants.ArenaDevNames[expectedArenaIndex], _arenaDisplayViewModel.ArenaName);
         }
 
         [Fact]
         public void TestPreviousArenaWrapsIndex()
         {
-            int expectedArenaIndex = Constants.ArenaNames.Length - 1;
+            int expectedArenaIndex = Constants.ArenaDevNames.Length - 1;
 
             _arenaDisplayViewModel.SelectPreviousArena();
 
-            Assert.Equal(Constants.ArenaNames[expectedArenaIndex], _arenaDisplayViewModel.ArenaName);
+            Assert.Equal(Constants.ArenaDevNames[expectedArenaIndex], _arenaDisplayViewModel.ArenaName);
         }
 
         private void CallNextArenaTimes(int quantity)
