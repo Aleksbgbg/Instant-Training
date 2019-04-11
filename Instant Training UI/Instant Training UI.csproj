@@ -82,6 +82,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\ArenaNameToImageConverter.cs" />
+    <Compile Include="Utilities\IResourceLocator.cs" />
+    <Compile Include="Utilities\ResourceLocator.cs" />
     <Compile Include="ViewModels\ArenaDisplayViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IArenaDisplayViewModel.cs" />
     <Compile Include="Views\ArenaDisplayView.xaml.cs">
@@ -161,11 +164,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Helpers\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Interfaces\" />
-    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ARC.png" />
