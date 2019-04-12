@@ -7,5 +7,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DataContext="{d:DesignInstance ViewModels:MainViewModel}"
              mc:Ignorable="d">
-    <ContentControl Caliburn:View.Model="{Binding ArenaDisplayViewModel, Mode=OneTime}"/>
+    <DockPanel>
+        <CheckBox Content="Enable Instant Training"
+                  DockPanel.Dock="Top"
+                  IsChecked="{Binding EnableInstantTraining}"/>
+        <ContentControl Caliburn:View.Model="{Binding ArenaDisplayViewModel, Mode=OneTime}"/>
+    </DockPanel>
 </UserControl>
