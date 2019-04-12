@@ -1,5 +1,7 @@
 ﻿namespace Instant.Training.UI.Services
 {
+    using System;
+
     using Instant.Training.UI.Services.Interfaces;
     using Instant.Training.UI.Utilities;
 
@@ -21,6 +23,11 @@
             _websocket.Connect();
             _websocket.OnMessage += OnMessage;
             Authenticate();
+        }
+
+        public void ToggleModEnabled(bool enabled)
+        {
+            _websocket.Send($"{Constants.Mod.EnabledCvar} {Convert.ToInt32(enabled)}");
         }
 
         public void TransmitTrainingMap(string trainingMap)

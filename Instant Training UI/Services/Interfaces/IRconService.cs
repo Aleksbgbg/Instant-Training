@@ -4,6 +4,8 @@
     {
         void Connect();
 
+        void ToggleModEnabled(bool enabled);
+
         void TransmitTrainingMap(string trainingMap);
     }
 }
