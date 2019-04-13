@@ -2,5 +2,6 @@
 {
     public interface IArenaDisplayViewModel : IViewModelBase
     {
+        void SaveArena();
     }
 }

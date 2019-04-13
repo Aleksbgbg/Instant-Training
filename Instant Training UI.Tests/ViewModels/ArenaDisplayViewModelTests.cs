@@ -9,21 +9,42 @@
 
     public class ArenaDisplayViewModelTests
     {
+        private readonly Mock<IDataService> _dataServiceMock;
+
         private readonly Mock<IRconService> _rconServiceMock;
 
-        private readonly ArenaDisplayViewModel _arenaDisplayViewModel;
+        private ArenaDisplayViewModel _arenaDisplayViewModel;
 
         public ArenaDisplayViewModelTests()
         {
+            _dataServiceMock = new Mock<IDataService>();
             _rconServiceMock = new Mock<IRconService>();
 
-            _arenaDisplayViewModel = new ArenaDisplayViewModel(_rconServiceMock.Object);
+            _arenaDisplayViewModel = new ArenaDisplayViewModel(_dataServiceMock.Object, _rconServiceMock.Object);
         }
 
         [Fact]
-        public void TestDefaultArenaIsIndexZero()
+        public void TestDefaultArenaIsLoadedFromDataService()
         {
-            Assert.Equal(Constants.ArenaDevNames[0], _arenaDisplayViewModel.ArenaName);
+            const int arenaIndex = 5;
+
+            _dataServiceMock.Setup(dataService => dataService.Load(Constants.DataNames.ArenaIndex, It.IsAny<int>()))
+                            .Returns(arenaIndex);
+
+            _arenaDisplayViewModel = new ArenaDisplayViewModel(_dataServiceMock.Object, _rconServiceMock.Object);
+
+            Assert.Equal(Constants.ArenaDevNames[arenaIndex], _arenaDisplayViewModel.ArenaName);
+        }
+
+        [Fact]
+        public void TestSaveArena()
+        {
+            const int arenaIndex = 10;
+
+            CallNextArenaTimes(arenaIndex);
+            _arenaDisplayViewModel.SaveArena();
+
+            _dataServiceMock.Verify(dataService => dataService.Save(Constants.DataNames.ArenaIndex, arenaIndex));
         }
 
         [Fact]

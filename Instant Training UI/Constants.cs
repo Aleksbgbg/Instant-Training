@@ -23,6 +23,11 @@
             public const string Password = "password";
         }
 
+        public static class DataNames
+        {
+            public const string ArenaIndex = "Arena Index";
+        }
+
         public static readonly Dictionary<string, string> ArenaDevToInGameNameMappings = new Dictionary<string, string>
         {
             ["Underwater_P"] = "Aquadome",

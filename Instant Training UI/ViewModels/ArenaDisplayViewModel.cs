@@ -7,14 +7,17 @@
     {
         private static readonly int ArenaNamesLength = Constants.ArenaDevNames.Length;
 
+        private readonly IDataService _dataService;
+
         private readonly IRconService _rconService;
 
         private int _arenaIndex;
 
-        public ArenaDisplayViewModel(IRconService rconService)
+        public ArenaDisplayViewModel(IDataService dataService, IRconService rconService)
         {
+            _dataService = dataService;
             _rconService = rconService;
-            _arenaIndex = 0;
+            _arenaIndex = dataService.Load(Constants.DataNames.ArenaIndex, 0);
 
             PickArenaNameFromIndex();
         }
@@ -33,6 +36,11 @@
 
                 _rconService.TransmitTrainingMap(_arenaName);
             }
+        }
+
+        public void SaveArena()
+        {
+            _dataService.Save(Constants.DataNames.ArenaIndex, _arenaIndex);
         }
 
         public void SelectNextArena()

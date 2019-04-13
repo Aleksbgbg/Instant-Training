@@ -1,5 +1,6 @@
 ﻿namespace Instant.Training.UI
 {
+    using System;
     using System.Windows;
 
     using Caliburn.Micro.Wrapper;
@@ -31,6 +32,11 @@
         protected override void OnStartupBeforeDisplayRootView(object sender, StartupEventArgs e)
         {
             Container.GetInstance<IRconService>().Connect();
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            Container.GetInstance<IArenaDisplayViewModel>().SaveArena();
         }
     }
 }
