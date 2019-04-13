@@ -77,6 +77,7 @@
     <Compile Include="TestUtil\ConverterExtensions.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersEntryTests.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersFileTests.cs" />
+    <Compile Include="Utilities\LibraryFolders\LibraryFoldersParserTests.cs" />
     <Compile Include="ViewModels\ArenaDisplayViewModelTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
     <Compile Include="ViewModels\ShellViewModelTests.cs" />

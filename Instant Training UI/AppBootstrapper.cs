@@ -8,6 +8,7 @@
     using Instant.Training.UI.Services;
     using Instant.Training.UI.Services.Interfaces;
     using Instant.Training.UI.Utilities;
+    using Instant.Training.UI.Utilities.LibraryFolders;
     using Instant.Training.UI.ViewModels;
     using Instant.Training.UI.ViewModels.Interfaces;
 
@@ -24,6 +25,8 @@
         {
             Container.Singleton<IAppDataService, AppDataService>();
             Container.Singleton<IDataService, DataService>();
+
+            Container.Singleton<ILibraryFoldersParser, LibraryFoldersParser>();
 
             Container.RegisterHandler(typeof(IWebSocket), null, container => new WebSocketAdapter($"ws://{Constants.RCON.Host}:{Constants.RCON.Port}/"));
             Container.Singleton<IRconService, RconService>();

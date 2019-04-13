@@ -96,10 +96,12 @@
     <Compile Include="Services\Interfaces\IDataService.cs" />
     <Compile Include="Services\Interfaces\IRconService.cs" />
     <Compile Include="Services\RconService.cs" />
+    <Compile Include="Utilities\LibraryFolders\ILibraryFoldersParser.cs" />
     <Compile Include="Utilities\IResourceLocator.cs" />
     <Compile Include="Utilities\IWebSocket.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersEntry.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersFile.cs" />
+    <Compile Include="Utilities\LibraryFolders\LibraryFoldersParser.cs" />
     <Compile Include="Utilities\ResourceLocator.cs" />
     <Compile Include="Utilities\WebSocketAdapter.cs" />
     <Compile Include="ViewModels\ArenaDisplayViewModel.cs" />
