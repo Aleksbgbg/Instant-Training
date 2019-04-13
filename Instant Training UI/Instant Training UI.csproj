@@ -99,6 +99,7 @@
     <Compile Include="Utilities\IResourceLocator.cs" />
     <Compile Include="Utilities\IWebSocket.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersEntry.cs" />
+    <Compile Include="Utilities\LibraryFolders\LibraryFoldersFile.cs" />
     <Compile Include="Utilities\ResourceLocator.cs" />
     <Compile Include="Utilities\WebSocketAdapter.cs" />
     <Compile Include="ViewModels\ArenaDisplayViewModel.cs" />
