@@ -28,6 +28,17 @@
             public const string ArenaIndex = "Arena Index";
         }
 
+        public static class Steam
+        {
+            public const string Win32RegistryKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
+
+            public const string Win64RegistryKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam";
+
+            public const string InstallPathValue = "InstallPath";
+
+            public const string LibraryFoldersPath = @"steamapps\libraryfolders.vdf";
+        }
+
         public static readonly Dictionary<string, string> ArenaDevToInGameNameMappings = new Dictionary<string, string>
         {
             ["Underwater_P"] = "Aquadome",
