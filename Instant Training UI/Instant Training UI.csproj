@@ -50,6 +50,9 @@
     <Reference Include="Caliburn.Micro.Wrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Tornado.Caliburn.Micro.Wrapper.1.0.2\lib\net472\Caliburn.Micro.Wrapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -87,6 +90,10 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\ArenaDevNameToInGameNameConverter.cs" />
     <Compile Include="Converters\ArenaNameToImageConverter.cs" />
+    <Compile Include="Services\AppDataService.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\Interfaces\IAppDataService.cs" />
+    <Compile Include="Services\Interfaces\IDataService.cs" />
     <Compile Include="Services\Interfaces\IRconService.cs" />
     <Compile Include="Services\RconService.cs" />
     <Compile Include="Utilities\IResourceLocator.cs" />

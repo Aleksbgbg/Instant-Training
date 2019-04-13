@@ -21,8 +21,10 @@
 
         protected override void RegisterServices()
         {
-            Container.RegisterHandler(typeof(IWebSocket), null, container => new WebSocketAdapter($"ws://{Constants.RCON.Host}:{Constants.RCON.Port}/"));
+            Container.Singleton<IAppDataService, AppDataService>();
+            Container.Singleton<IDataService, DataService>();
 
+            Container.RegisterHandler(typeof(IWebSocket), null, container => new WebSocketAdapter($"ws://{Constants.RCON.Host}:{Constants.RCON.Port}/"));
             Container.Singleton<IRconService, RconService>();
         }
 
