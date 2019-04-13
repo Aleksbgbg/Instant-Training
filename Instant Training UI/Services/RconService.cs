@@ -32,7 +32,7 @@
 
         public void TransmitTrainingMap(string trainingMap)
         {
-            _websocket.Send($"{Constants.Mod.TrainingMapCvar} {trainingMap}{Constants.Mod.MapSuffix}");
+            _websocket.Send($"{Constants.Mod.TrainingMapCvar} {trainingMap}");
         }
 
         private void OnMessage(object sender, MessageEventArgs e)

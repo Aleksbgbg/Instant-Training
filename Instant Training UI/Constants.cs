@@ -12,8 +12,6 @@
             public const string EnabledCvar = "instant_training_enabled";
 
             public const string TrainingMapCvar = "instant_training_map";
-
-            public const string MapSuffix = "_P";
         }
 
         public static class RCON

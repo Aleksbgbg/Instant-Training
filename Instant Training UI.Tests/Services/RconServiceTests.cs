@@ -45,7 +45,7 @@
 
             _rconService.TransmitTrainingMap(trainingMap);
 
-            VerifyWebSocketMessageSent($"{Constants.Mod.TrainingMapCvar} {trainingMap}{Constants.Mod.MapSuffix}");
+            VerifyWebSocketMessageSent($"{Constants.Mod.TrainingMapCvar} {trainingMap}");
         }
 
         [Fact]
