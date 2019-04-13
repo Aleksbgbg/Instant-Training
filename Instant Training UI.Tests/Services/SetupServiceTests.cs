@@ -12,6 +12,8 @@
 
     public class SetupServiceTests
     {
+        private const string SteamGamesPath = @"Z:\Steam";
+
         private readonly Mock<ISteamService> _steamServiceMock;
 
         private readonly Mock<IFileSystemProvider> _fileSystemProviderMock;
@@ -21,6 +23,8 @@
         public SetupServiceTests()
         {
             _steamServiceMock = new Mock<ISteamService>();
+            _steamServiceMock.Setup(steamService => steamService.GetSteamGamesPath())
+                             .Returns(SteamGamesPath);
 
             _fileSystemProviderMock = new Mock<IFileSystemProvider>();
 
@@ -30,19 +34,36 @@
         [Fact]
         public void TestRocketLeagueInstalledChecksSteamPath()
         {
-            const string steamGamesPath = "Z:\\Steam";
-            string rocketLeaguePath = Path.Combine(steamGamesPath, Constants.Steam.RocketLeaguePath);
-
-            _steamServiceMock.Setup(steamService => steamService.GetSteamGamesPath())
-                             .Returns(steamGamesPath);
-
-            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.DirectoryExists(rocketLeaguePath))
-                                   .Returns(true);
+            string rocketLeaguePath = Path.Combine(SteamGamesPath, Constants.Steam.RocketLeaguePath);
+            SetupFileSystemPathExists(rocketLeaguePath);
 
             bool rocketLeagueInstalled = _setupService.CheckRocketLeagueInstalled();
 
-            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.DirectoryExists(rocketLeaguePath));
+            VerifyFileSystemPathQueries(rocketLeaguePath);
             Assert.True(rocketLeagueInstalled);
+        }
+
+        [Fact]
+        public void TestBakkesModInstalledChecksSteamPath()
+        {
+            string bakkesModPath = Path.Combine(SteamGamesPath, Constants.Steam.RocketLeaguePath, Constants.Steam.BakkesModPath);
+            SetupFileSystemPathExists(bakkesModPath);
+
+            bool bakkesModInstalled = _setupService.CheckBakkesModInstalled();
+
+            VerifyFileSystemPathQueries(bakkesModPath);
+            Assert.True(bakkesModInstalled);
+        }
+
+        private void SetupFileSystemPathExists(string path)
+        {
+            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.DirectoryExists(path))
+                                   .Returns(true);
+        }
+
+        private void VerifyFileSystemPathQueries(string path)
+        {
+            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.DirectoryExists(path));
         }
     }
 }

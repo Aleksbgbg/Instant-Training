@@ -19,11 +19,22 @@
 
         public bool CheckRocketLeagueInstalled()
         {
-            string steamGamesPath = _steamService.GetSteamGamesPath();
-
-            string rocketLeaguePath = Path.Combine(steamGamesPath, Constants.Steam.RocketLeaguePath);
-
+            string rocketLeaguePath = GetRocketLeaguePath();
             return _fileSystemProvider.DirectoryExists(rocketLeaguePath);
+        }
+
+        public bool CheckBakkesModInstalled()
+        {
+            string rocketLeaguePath = GetRocketLeaguePath();
+            string bakkesModPath = Path.Combine(rocketLeaguePath, Constants.Steam.BakkesModPath);
+            return _fileSystemProvider.DirectoryExists(bakkesModPath);
+        }
+
+        private string GetRocketLeaguePath()
+        {
+            string steamGamesPath = _steamService.GetSteamGamesPath();
+            string rocketLeaguePath = Path.Combine(steamGamesPath, Constants.Steam.RocketLeaguePath);
+            return rocketLeaguePath;
         }
     }
 }

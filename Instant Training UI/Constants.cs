@@ -39,6 +39,8 @@
             public const string LibraryFoldersPath = @"steamapps\libraryfolders.vdf";
 
             public const string RocketLeaguePath = @"steamapps\common\rocketleague";
+
+            public const string BakkesModPath = @"Binaries\Win32\bakkesmod";
         }
 
         public static readonly Dictionary<string, string> ArenaDevToInGameNameMappings = new Dictionary<string, string>

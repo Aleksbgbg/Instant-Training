@@ -3,5 +3,7 @@
     public interface ISetupService
     {
         bool CheckRocketLeagueInstalled();
+
+        bool CheckBakkesModInstalled();
     }
 }
