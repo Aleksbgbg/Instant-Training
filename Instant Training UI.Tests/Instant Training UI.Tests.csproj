@@ -74,6 +74,7 @@
     <Compile Include="Converters\ArenaNameToImageConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RconServiceTests.cs" />
+    <Compile Include="Services\SetupServiceTests.cs" />
     <Compile Include="Services\SteamServiceTests.cs" />
     <Compile Include="TestUtil\ConverterExtensions.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersEntryTests.cs" />

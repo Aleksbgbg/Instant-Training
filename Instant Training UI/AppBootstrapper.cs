@@ -26,11 +26,12 @@
             Container.Singleton<IAppDataService, AppDataService>();
             Container.Singleton<IDataService, DataService>();
 
+            Container.Singleton<ILibraryFoldersParser, LibraryFoldersParser>();
             Container.Singleton<IFileSystemProvider, FileSystemProvider>();
             Container.Singleton<IRegistryProvider, RegistryProvider>();
             Container.Singleton<ISteamService, SteamService>();
 
-            Container.Singleton<ILibraryFoldersParser, LibraryFoldersParser>();
+            Container.Singleton<ISetupService, SetupService>();
 
             Container.RegisterHandler(typeof(IWebSocket), null, container => new WebSocketAdapter($"ws://{Constants.RCON.Host}:{Constants.RCON.Port}/"));
             Container.Singleton<IRconService, RconService>();
