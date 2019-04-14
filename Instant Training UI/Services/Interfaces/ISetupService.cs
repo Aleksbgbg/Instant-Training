@@ -5,5 +5,7 @@
         bool CheckRocketLeagueInstalled();
 
         bool CheckBakkesModInstalled();
+
+        void SetupPlugin();
     }
 }

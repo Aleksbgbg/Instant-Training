@@ -7,6 +7,12 @@
     {
         public const string AppName = "Rocket League Instant Training Mod";
 
+        public const string PluginName = "InstantTraining";
+
+        public const string DllName = "InstantTraining.dll";
+
+        public const string ResourcesDirectory = "Resources";
+
         public static class Mod
         {
             public const string EnabledCvar = "instant_training_enabled";
@@ -41,6 +47,10 @@
             public const string RocketLeaguePath = @"steamapps\common\rocketleague";
 
             public const string BakkesModPath = @"Binaries\Win32\bakkesmod";
+
+            public const string PluginsDirectory = "plugins";
+
+            public const string LoadPluginsFile = @"cfg\plugins.cfg";
         }
 
         public static readonly Dictionary<string, string> ArenaDevToInGameNameMappings = new Dictionary<string, string>
