@@ -6,6 +6,12 @@
 
         bool CheckBakkesModInstalled();
 
-        void SetupPlugin();
+        bool CheckModDllInstalled();
+
+        void InstallModDll();
+
+        bool CheckPluginLoadsOnStartup();
+
+        void LoadPluginOnStartup();
     }
 }

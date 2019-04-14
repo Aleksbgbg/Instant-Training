@@ -1,7 +1,7 @@
 ﻿namespace Instant.Training.UI.Tests.Services
 {
     using System;
-    using System.IO;
+    using System.Linq.Expressions;
 
     using Instant.Training.UI.Services;
     using Instant.Training.UI.Services.Interfaces;
@@ -13,9 +13,7 @@
 
     public class SetupServiceTests
     {
-        private const string SteamGamesPath = @"Z:\Steam";
-
-        private readonly Mock<ISteamService> _steamServiceMock;
+        private readonly Mock<IPathService> _pathServiceMock;
 
         private readonly Mock<IFileSystemProvider> _fileSystemProviderMock;
 
@@ -23,20 +21,18 @@
 
         public SetupServiceTests()
         {
-            _steamServiceMock = new Mock<ISteamService>();
-            _steamServiceMock.Setup(steamService => steamService.GetSteamGamesPath())
-                             .Returns(SteamGamesPath);
+            _pathServiceMock = new Mock<IPathService>();
 
             _fileSystemProviderMock = new Mock<IFileSystemProvider>();
 
-            _setupService = new SetupService(_steamServiceMock.Object, _fileSystemProviderMock.Object);
+            _setupService = new SetupService(_pathServiceMock.Object, _fileSystemProviderMock.Object);
         }
 
         [Fact]
-        public void TestRocketLeagueInstalledChecksSteamPath()
+        public void TestCheckRocketLeagueInstalled()
         {
-            string rocketLeaguePath = Path.Combine(SteamGamesPath, Constants.Steam.RocketLeaguePath);
-            SetupDirectoryExists(rocketLeaguePath);
+            const string rocketLeaguePath = "RocketLeague";
+            SetupDirectory(directoryService => directoryService.RocketLeaguePath, rocketLeaguePath);
 
             bool rocketLeagueInstalled = _setupService.CheckRocketLeagueInstalled();
 
@@ -45,10 +41,10 @@
         }
 
         [Fact]
-        public void TestBakkesModInstalledChecksSteamPath()
+        public void TestCheckBakkesModInstalled()
         {
-            string bakkesModPath = Path.Combine(SteamGamesPath, Constants.Steam.RocketLeaguePath, Constants.Steam.BakkesModPath);
-            SetupDirectoryExists(bakkesModPath);
+            const string bakkesModPath = "BakkesMod";
+            SetupDirectory(directoryService => directoryService.BakkesModPath, bakkesModPath);
 
             bool bakkesModInstalled = _setupService.CheckBakkesModInstalled();
 
@@ -57,168 +53,101 @@
         }
 
         [Fact]
-        public void TestSetupPluginTestsIfDllExists()
+        public void TestCheckDllInstalled()
         {
-            SetupConfigFileWithPlugin();
-            string dllPath = SetupDllTargetPathExists();
+            const string dllPath = "DllPath";
+            SetupFile(directoryService => directoryService.ModDllPath, dllPath);
 
-            _setupService.SetupPlugin();
+            bool dllInstalled = _setupService.CheckModDllInstalled();
 
             VerifyQueryFileExists(dllPath);
+            Assert.True(dllInstalled);
         }
 
         [Fact]
-        public void TestSetupDoesNotCopyPluginWhenExists()
+        public void TestInstallModDll()
         {
-            SetupConfigFileWithPlugin();
-            string dllResourcePath = SetupDllResourcePath();
-            string dllTargetPath = SetupDllTargetPathExists();
+            const string pluginSourcePath = "PluginResource";
+            const string pluginTargetPath = "PluginTarget";
 
-            _setupService.SetupPlugin();
+            SetupFile(directoryService => directoryService.DllResourcePath, pluginSourcePath);
+            SetupFile(directoryService => directoryService.ModDllPath, pluginTargetPath);
 
-            VerifyQueryFileExists(dllTargetPath);
-            VerifyCopyFile(dllResourcePath, dllTargetPath, Times.Never);
+            _setupService.InstallModDll();
+
+            VerifyCopyFile(pluginSourcePath, pluginTargetPath);
         }
 
         [Fact]
-        public void TestSetupCopiesPluginWhenNotExist()
+        public void TestCheckPluginLoadsOnStartupReadsFile()
         {
-            SetupConfigFileWithPlugin();
-            string dllResourcePath = SetupDllResourcePath();
-            string dllTargetPath = SetupDllTargetPathMissing();
+            const string pluginConfigFile = "PluginConfig";
+            SetupFile(directoryService => directoryService.PluginsConfigFilePath, pluginConfigFile, contents: string.Empty);
 
-            _setupService.SetupPlugin();
+            _setupService.CheckPluginLoadsOnStartup();
 
-            VerifyQueryFileExists(dllTargetPath);
-            VerifyCopyFile(dllResourcePath, dllTargetPath);
+            VerifyReadFile(pluginConfigFile);
         }
 
         [Fact]
-        public void TestSetupReadsConfigFile()
+        public void TestCheckPluginLoadsOnStartupRecognisesValidFile()
         {
-            SetupDllTargetPathExists();
-            string configFilePath = SetupConfigFileWithPlugin();
+            const string pluginConfigFile = "PluginConfig";
+            string fileContents = $"plugin load rconplugin\r\nplugin load {Constants.PluginName}";
 
-            _setupService.SetupPlugin();
+            SetupFile(directoryService => directoryService.PluginsConfigFilePath, pluginConfigFile, fileContents);
 
-            VerifyReadFile(configFilePath);
+            bool pluginLoadsOnStartup = _setupService.CheckPluginLoadsOnStartup();
+
+            Assert.True(pluginLoadsOnStartup);
         }
 
         [Fact]
-        public void TestSetupRewritesConfigFileWhenPluginNotLoaded()
+        public void TestCheckPluginLoadsOnStartupRecognisesInvalidFile()
         {
-            SetupDllTargetPathExists();
-            string configFilePath = SetupConfigFileNoPlugin();
+            const string pluginConfigFile = "PluginConfig";
+            const string fileContents = "plugin load rconplugin";
 
-            _setupService.SetupPlugin();
+            SetupFile(directoryService => directoryService.PluginsConfigFilePath, pluginConfigFile, fileContents);
 
-            VerifyReadFile(configFilePath);
-            VerifyWriteConfigFileWithInstantTraining();
+            bool pluginLoadsOnStartup = _setupService.CheckPluginLoadsOnStartup();
+
+            Assert.False(pluginLoadsOnStartup);
         }
 
-        private string SetupConfigFileNoPlugin()
+        [Fact]
+        public void TestLoadPluginOnStartupWritesFile()
         {
-            const string contents = @"
-plugin load rconplugin";
+            const string pluginConfigFile = "PluginConfig";
+            const string fileContents = "plugin load rconplugin";
 
-            return SetupConfigFile(contents);
+            SetupFile(directoryService => directoryService.PluginsConfigFilePath, pluginConfigFile, fileContents);
+
+            _setupService.LoadPluginOnStartup();
+
+            VerifyAppendFile(pluginConfigFile, $"plugin load {Constants.PluginName}");
         }
 
-        private string SetupConfigFileWithPlugin()
+        private void SetupDirectory(Expression<Func<IPathService, string>> directoryServicePath, string directory)
         {
-            const string contents = @"
-plugin load InstantTraining
-plugin load rconplugin";
+            _pathServiceMock.SetupGet(directoryServicePath).Returns(directory);
 
-            return SetupConfigFile(contents);
+            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.DirectoryExists(directory)).Returns(true);
         }
 
-        private string SetupConfigFile(string contents)
+        private void SetupFile(Expression<Func<IPathService, string>> directoryServicePath, string file, string contents)
         {
-            string configFilePath = GetConfigFilePath();
-
-            SetupReadFile(configFilePath, contents);
-
-            return configFilePath;
-        }
-
-        private static string GetConfigFilePath()
-        {
-            return Path.Combine(GetBakkesModPath(), Constants.Steam.LoadPluginsFile);
-        }
-
-        private void SetupReadFile(string path, string contents)
-        {
-            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.ReadFile(path))
+            SetupFile(directoryServicePath, file);
+            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.ReadFile(file))
                                    .Returns(contents);
         }
 
-        private void VerifyReadFile(string path)
+        private void SetupFile(Expression<Func<IPathService, string>> directoryServicePath, string file)
         {
-            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.ReadFile(path));
-        }
+            _pathServiceMock.SetupGet(directoryServicePath)
+                            .Returns(file);
 
-        private void VerifyWriteConfigFileWithInstantTraining()
-        {
-            const string contents = @"
-plugin load rconplugin
-plugin load InstantTraining";
-
-            VerifyWriteFile(GetConfigFilePath(), contents);
-        }
-
-        private void VerifyWriteFile(string path, string contents)
-        {
-            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.WriteFile(path, contents));
-        }
-
-        private string SetupDllResourcePath()
-        {
-            const string currentDirectory = "CurrentDirectory";
-            SetupCurrentDirectory(currentDirectory);
-
-            string dllResourcePath = Path.Combine(currentDirectory, Constants.ResourcesDirectory, Constants.DllName);
-            return dllResourcePath;
-        }
-
-        private string SetupDllTargetPathExists()
-        {
-            string dllTargetPath = GetDllTargetPath();
-            SetupFileExists(dllTargetPath);
-            return dllTargetPath;
-        }
-
-        private static string SetupDllTargetPathMissing()
-        {
-            return GetDllTargetPath();
-        }
-
-        private static string GetDllTargetPath()
-        {
-            string dllTargetPath = Path.Combine(GetBakkesModPath(), Constants.Steam.PluginsDirectory, Constants.DllName);
-            return dllTargetPath;
-        }
-
-        private static string GetBakkesModPath()
-        {
-            return Path.Combine(SteamGamesPath, Constants.Steam.RocketLeaguePath, Constants.Steam.BakkesModPath);
-        }
-
-        private void SetupCurrentDirectory(string path)
-        {
-            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.CurrentDirectory)
-                                   .Returns(path);
-        }
-
-        private void SetupDirectoryExists(string path)
-        {
-            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.DirectoryExists(path))
-                                   .Returns(true);
-        }
-
-        private void SetupFileExists(string path)
-        {
-            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.FileExists(path))
+            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.FileExists(file))
                                    .Returns(true);
         }
 
@@ -232,14 +161,19 @@ plugin load InstantTraining";
             _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.FileExists(path));
         }
 
-        private void VerifyCopyFile(string source, string target)
+        private void VerifyReadFile(string path)
         {
-            VerifyCopyFile(source, target, Times.Once);
+            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.ReadFile(path));
         }
 
-        private void VerifyCopyFile(string source, string target, Func<Times> times)
+        private void VerifyAppendFile(string path, string contents)
         {
-            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.Copy(source, target), times);
+            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.AppendFile(path, contents));
+        }
+
+        private void VerifyCopyFile(string source, string target)
+        {
+            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.Copy(source, target));
         }
     }
 }

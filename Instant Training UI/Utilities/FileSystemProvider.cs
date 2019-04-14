@@ -27,6 +27,11 @@
             File.WriteAllText(path, contents);
         }
 
+        public void AppendFile(string path, string contents)
+        {
+            File.AppendAllText(path, contents);
+        }
+
         public void Copy(string source, string target)
         {
             File.Copy(source, target);

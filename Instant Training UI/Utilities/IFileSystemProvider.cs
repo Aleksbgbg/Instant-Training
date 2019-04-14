@@ -12,6 +12,8 @@
 
         void WriteFile(string path, string contents);
 
+        void AppendFile(string path, string contents);
+
         void Copy(string source, string target);
     }
 }

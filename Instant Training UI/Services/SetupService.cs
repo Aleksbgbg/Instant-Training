@@ -1,7 +1,6 @@
 ﻿namespace Instant.Training.UI.Services
 {
     using System;
-    using System.IO;
     using System.Linq;
 
     using Instant.Training.UI.Services.Interfaces;
@@ -9,83 +8,52 @@
 
     public class SetupService : ISetupService
     {
-        private readonly ISteamService _steamService;
+        private readonly IPathService _pathService;
 
         private readonly IFileSystemProvider _fileSystemProvider;
 
-        public SetupService(ISteamService steamService, IFileSystemProvider fileSystemProvider)
+        public SetupService(IPathService pathService, IFileSystemProvider fileSystemProvider)
         {
-            _steamService = steamService;
+            _pathService = pathService;
             _fileSystemProvider = fileSystemProvider;
         }
 
         public bool CheckRocketLeagueInstalled()
         {
-            string rocketLeaguePath = GetRocketLeaguePath();
-            return _fileSystemProvider.DirectoryExists(rocketLeaguePath);
+            return _fileSystemProvider.DirectoryExists(_pathService.RocketLeaguePath);
         }
 
         public bool CheckBakkesModInstalled()
         {
-            string bakkesModPath = GetBakkesModPath();
-            return _fileSystemProvider.DirectoryExists(bakkesModPath);
+            return _fileSystemProvider.DirectoryExists(_pathService.BakkesModPath);
         }
 
-        public void SetupPlugin()
+        public bool CheckModDllInstalled()
         {
-            EnsurePluginDllInstalled();
-            EnsurePluginLoadsOnStart();
+            return _fileSystemProvider.FileExists(_pathService.ModDllPath);
         }
 
-        private void EnsurePluginDllInstalled()
+        public void InstallModDll()
         {
-            string pluginsPath = GetPluginsPath();
-            string instantTrainingDllPath = Path.Combine(pluginsPath, Constants.DllName);
-
-            if (!_fileSystemProvider.FileExists(instantTrainingDllPath))
-            {
-                string dllResource = Path.Combine(_fileSystemProvider.CurrentDirectory, Constants.ResourcesDirectory, Constants.DllName);
-                _fileSystemProvider.Copy(dllResource, instantTrainingDllPath);
-            }
+            _fileSystemProvider.Copy(_pathService.DllResourcePath, _pathService.ModDllPath);
         }
 
-        private void EnsurePluginLoadsOnStart()
+        public bool CheckPluginLoadsOnStartup()
         {
-            string configFilePath = GetConfigPluginsFile();
-            string configFileContents = _fileSystemProvider.ReadFile(configFilePath);
+            string pluginConfig = _fileSystemProvider.ReadFile(_pathService.PluginsConfigFilePath);
 
-            string[] configLines = configFileContents.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-            string loadPluginCommand = $"plugin load {Constants.PluginName}";
-
-            if (configLines.All(line => line != loadPluginCommand))
-            {
-                _fileSystemProvider.WriteFile(configFilePath, string.Join(Environment.NewLine, configLines.Append(loadPluginCommand)));
-            }
+            return pluginConfig.Split(new string[] { "\r\n" }, StringSplitOptions.None)
+                               .Contains(ComputePluginLoadCommand());
         }
 
-        private string GetConfigPluginsFile()
+        public void LoadPluginOnStartup()
         {
-            return Path.Combine(GetBakkesModPath(), Constants.Steam.LoadPluginsFile);
+            _fileSystemProvider.AppendFile(_pathService.PluginsConfigFilePath, ComputePluginLoadCommand());
         }
 
-        private string GetPluginsPath()
+        private static string ComputePluginLoadCommand()
         {
-            return Path.Combine(GetBakkesModPath(), Constants.Steam.PluginsDirectory);
-        }
-
-        private string GetBakkesModPath()
-        {
-            return Path.Combine(GetRocketLeaguePath(), Constants.Steam.BakkesModPath);
-        }
-
-        private string GetRocketLeaguePath()
-        {
-            return Path.Combine(_steamService.GetSteamGamesPath(), Constants.Steam.RocketLeaguePath);
-        }
-
-        private string GetAppResourcesDirectory()
-        {
-            return Path.Combine(_fileSystemProvider.CurrentDirectory, Constants.ResourcesDirectory);
+            return $"plugin load {Constants.PluginName}";
         }
     }
 }
