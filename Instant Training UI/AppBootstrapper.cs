@@ -33,6 +33,8 @@
 
             Container.Singleton<IPathService, PathService>();
             Container.Singleton<IHashProvider, HashProvider>();
+            Container.Singleton<IProcessProvider, ProcessProvider>();
+            Container.Singleton<IFileWatchProvider, FileWatchProvider>();
             Container.Singleton<ISetupService, SetupService>();
 
             Container.RegisterHandler(typeof(IWebSocket), null, container => new WebSocketAdapter($"ws://{Constants.RCON.Host}:{Constants.RCON.Port}/"));

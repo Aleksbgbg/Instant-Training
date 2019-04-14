@@ -103,9 +103,13 @@
     <Compile Include="Services\SetupService.cs" />
     <Compile Include="Services\SteamService.cs" />
     <Compile Include="Utilities\FileSystemProvider.cs" />
+    <Compile Include="Utilities\FileWatchProvider.cs" />
     <Compile Include="Utilities\HashProvider.cs" />
     <Compile Include="Utilities\IFileSystemProvider.cs" />
+    <Compile Include="Utilities\IFileWatchProvider.cs" />
     <Compile Include="Utilities\IHashProvider.cs" />
+    <Compile Include="Utilities\IProcess.cs" />
+    <Compile Include="Utilities\IProcessProvider.cs" />
     <Compile Include="Utilities\LibraryFolders\ILibraryFoldersParser.cs" />
     <Compile Include="Utilities\IRegistryProvider.cs" />
     <Compile Include="Utilities\IResourceLocator.cs" />
@@ -113,6 +117,8 @@
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersEntry.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersFile.cs" />
     <Compile Include="Utilities\LibraryFolders\LibraryFoldersParser.cs" />
+    <Compile Include="Utilities\ProcessAdapter.cs" />
+    <Compile Include="Utilities\ProcessProvider.cs" />
     <Compile Include="Utilities\RegistryProvider.cs" />
     <Compile Include="Utilities\ResourceLocator.cs" />
     <Compile Include="Utilities\WebSocketAdapter.cs" />

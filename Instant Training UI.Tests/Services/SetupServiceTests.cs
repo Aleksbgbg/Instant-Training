@@ -1,8 +1,10 @@
 ﻿namespace Instant.Training.UI.Tests.Services
 {
     using System;
+    using System.IO;
     using System.Linq.Expressions;
     using System.Text;
+    using System.Threading.Tasks;
 
     using Instant.Training.UI.Services;
     using Instant.Training.UI.Services.Interfaces;
@@ -20,6 +22,10 @@
 
         private readonly Mock<IHashProvider> _hashProviderMock;
 
+        private readonly Mock<IProcessProvider> _processProviderMock;
+
+        private readonly Mock<IFileWatchProvider> _fileWatchProviderMock;
+
         private readonly SetupService _setupService;
 
         public SetupServiceTests()
@@ -30,7 +36,11 @@
 
             _hashProviderMock = new Mock<IHashProvider>();
 
-            _setupService = new SetupService(_pathServiceMock.Object, _fileSystemProviderMock.Object, _hashProviderMock.Object);
+            _processProviderMock = new Mock<IProcessProvider>();
+
+            _fileWatchProviderMock = new Mock<IFileWatchProvider>();
+
+            _setupService = new SetupService(_pathServiceMock.Object, _fileSystemProviderMock.Object, _hashProviderMock.Object, _processProviderMock.Object, _fileWatchProviderMock.Object);
         }
 
         [Fact]
@@ -55,6 +65,57 @@
 
             VerifyQueryDirectoryExists(bakkesModPath);
             Assert.True(bakkesModInstalled);
+        }
+
+        [Fact]
+        public void TestInstallBakkesModStartsBakkesModInjector()
+        {
+            const string bakkesModProcess = "BakkesMod";
+            SetupFile(directoryService => directoryService.BakkesModInjectorResourcePath, bakkesModProcess);
+            SetupProcess(bakkesModProcess);
+
+            _setupService.InstallBakkesMod();
+
+            VerifyProcessStarted(bakkesModProcess);
+        }
+
+        [Fact]
+        public async Task TestInstallBakkesModKeepsInjectorAlive()
+        {
+            const string bakkesModProcess = "BakkesMod";
+            SetupFile(directoryService => directoryService.BakkesModInjectorResourcePath, bakkesModProcess);
+            Mock<IProcess> processMock = SetupProcess(bakkesModProcess);
+
+            Task task = _setupService.InstallBakkesMod();
+
+            processMock.Raise(process => process.Exited += null, (EventArgs)null);
+
+            await task;
+
+            VerifyProcessStarted(bakkesModProcess, Times.Exactly(2));
+        }
+
+        [Fact]
+        public void TestInstallBakkesModKillsInjectorWhenDirectoryCreated()
+        {
+            const string bakkesModDirectory = "BakkesModDir";
+            const string bakkesModProcess = "BakkesMod";
+
+            SetupDirectory(directoryService => directoryService.BakkesModPath, bakkesModDirectory);
+            SetupFile(directoryService => directoryService.BakkesModInjectorResourcePath, bakkesModProcess);
+
+            Mock<IProcess> processMock = SetupProcess(bakkesModProcess);
+
+            TaskCompletionSource<object> taskSource = new TaskCompletionSource<object>();
+
+            _fileWatchProviderMock.Setup(fileWatchProvider => fileWatchProvider.DirectoryCreated(bakkesModDirectory))
+                                  .Returns(taskSource.Task);
+
+            _setupService.InstallBakkesMod();
+
+            processMock.Verify(process => process.Kill(), Times.Never);
+            taskSource.SetResult(null);
+            processMock.Verify(process => process.Kill(), Times.Once);
         }
 
         [Fact]
@@ -177,6 +238,16 @@
                                    .Returns(true);
         }
 
+        private Mock<IProcess> SetupProcess(string name)
+        {
+            Mock<IProcess> processMock = new Mock<IProcess>();
+
+            _processProviderMock.Setup(processProvider => processProvider.StartProcess(name))
+                                .Returns(processMock.Object);
+
+            return processMock;
+        }
+
         private void VerifyQueryDirectoryExists(string path)
         {
             _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.DirectoryExists(path));
@@ -210,6 +281,16 @@
         private void VerifyCheckHash(byte[] contents)
         {
             _hashProviderMock.Verify(hashProvider => hashProvider.Hash(contents));
+        }
+
+        private void VerifyProcessStarted(string process)
+        {
+            VerifyProcessStarted(process, Times.Once());
+        }
+
+        private void VerifyProcessStarted(string process, Times times)
+        {
+            _processProviderMock.Verify(processProvider => processProvider.StartProcess(process), times);
         }
     }
 }
