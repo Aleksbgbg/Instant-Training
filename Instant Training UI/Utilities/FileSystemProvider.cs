@@ -17,6 +17,11 @@
             return File.Exists(path);
         }
 
+        public byte[] ReadFileBytes(string path)
+        {
+            return File.ReadAllBytes(path);
+        }
+
         public string ReadFile(string path)
         {
             return File.ReadAllText(path);

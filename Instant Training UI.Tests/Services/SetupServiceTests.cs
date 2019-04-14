@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq.Expressions;
+    using System.Text;
 
     using Instant.Training.UI.Services;
     using Instant.Training.UI.Services.Interfaces;
@@ -17,6 +18,8 @@
 
         private readonly Mock<IFileSystemProvider> _fileSystemProviderMock;
 
+        private readonly Mock<IHashProvider> _hashProviderMock;
+
         private readonly SetupService _setupService;
 
         public SetupServiceTests()
@@ -25,7 +28,9 @@
 
             _fileSystemProviderMock = new Mock<IFileSystemProvider>();
 
-            _setupService = new SetupService(_pathServiceMock.Object, _fileSystemProviderMock.Object);
+            _hashProviderMock = new Mock<IHashProvider>();
+
+            _setupService = new SetupService(_pathServiceMock.Object, _fileSystemProviderMock.Object, _hashProviderMock.Object);
         }
 
         [Fact]
@@ -53,7 +58,7 @@
         }
 
         [Fact]
-        public void TestCheckDllInstalled()
+        public void TestCheckDllInstalledChecksFileExists()
         {
             const string dllPath = "DllPath";
             SetupFile(directoryService => directoryService.ModDllPath, dllPath);
@@ -61,7 +66,26 @@
             bool dllInstalled = _setupService.CheckModDllInstalled();
 
             VerifyQueryFileExists(dllPath);
-            Assert.True(dllInstalled);
+        }
+
+        [Fact]
+        public void TestCheckDllInstalledComparesHashes()
+        {
+            const string dllPath = "DllPath";
+            const string contents = "SomeDllContents";
+            SetupFile(directoryService => directoryService.ModDllPath, dllPath, contents);
+
+            const string resourceDllPath = "ResourceDllPath";
+            const string resourceContents = "SomeDllContents";
+            SetupFile(directoryService => directoryService.DllResourcePath, resourceDllPath, resourceContents);
+
+            bool modInstalled = _setupService.CheckModDllInstalled();
+
+            VerifyReadFileBytes(dllPath);
+            VerifyCheckHash(Encoding.ASCII.GetBytes(contents));
+            VerifyReadFileBytes(resourceDllPath);
+            VerifyCheckHash(Encoding.ASCII.GetBytes(resourceContents));
+            Assert.True(modInstalled);
         }
 
         [Fact]
@@ -140,6 +164,8 @@
             SetupFile(directoryServicePath, file);
             _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.ReadFile(file))
                                    .Returns(contents);
+            _fileSystemProviderMock.Setup(fileSystemProvider => fileSystemProvider.ReadFileBytes(file))
+                                   .Returns(Encoding.ASCII.GetBytes(contents));
         }
 
         private void SetupFile(Expression<Func<IPathService, string>> directoryServicePath, string file)
@@ -166,6 +192,11 @@
             _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.ReadFile(path));
         }
 
+        private void VerifyReadFileBytes(string path)
+        {
+            _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.ReadFileBytes(path));
+        }
+
         private void VerifyAppendFile(string path, string contents)
         {
             _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.AppendFile(path, contents));
@@ -174,6 +205,11 @@
         private void VerifyCopyFile(string source, string target)
         {
             _fileSystemProviderMock.Verify(fileSystemProvider => fileSystemProvider.Copy(source, target));
+        }
+
+        private void VerifyCheckHash(byte[] contents)
+        {
+            _hashProviderMock.Verify(hashProvider => hashProvider.Hash(contents));
         }
     }
 }

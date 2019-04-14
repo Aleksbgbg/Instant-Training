@@ -8,6 +8,8 @@
 
         bool FileExists(string path);
 
+        byte[] ReadFileBytes(string path);
+
         string ReadFile(string path);
 
         void WriteFile(string path, string contents);

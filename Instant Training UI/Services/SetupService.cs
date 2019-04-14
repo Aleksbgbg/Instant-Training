@@ -12,10 +12,13 @@
 
         private readonly IFileSystemProvider _fileSystemProvider;
 
-        public SetupService(IPathService pathService, IFileSystemProvider fileSystemProvider)
+        private readonly IHashProvider _hashProvider;
+
+        public SetupService(IPathService pathService, IFileSystemProvider fileSystemProvider, IHashProvider hashProvider)
         {
             _pathService = pathService;
             _fileSystemProvider = fileSystemProvider;
+            _hashProvider = hashProvider;
         }
 
         public bool CheckRocketLeagueInstalled()
@@ -30,7 +33,8 @@
 
         public bool CheckModDllInstalled()
         {
-            return _fileSystemProvider.FileExists(_pathService.ModDllPath);
+            return _fileSystemProvider.FileExists(_pathService.ModDllPath) &&
+                   _hashProvider.Hash(_fileSystemProvider.ReadFileBytes(_pathService.ModDllPath)) == _hashProvider.Hash(_fileSystemProvider.ReadFileBytes(_pathService.DllResourcePath));
         }
 
         public void InstallModDll()
