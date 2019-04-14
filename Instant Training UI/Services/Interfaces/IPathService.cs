@@ -9,5 +9,9 @@
         string ModDllPath { get; }
 
         string PluginsConfigFilePath { get; }
+
+        string DllResourcePath { get; }
+
+        string BakkesModInjectorResourcePath { get; }
     }
 }

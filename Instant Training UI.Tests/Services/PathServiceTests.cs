@@ -4,6 +4,7 @@
 
     using Instant.Training.UI.Services;
     using Instant.Training.UI.Services.Interfaces;
+    using Instant.Training.UI.Utilities;
 
     using Moq;
 
@@ -21,17 +22,21 @@
 
         private static readonly string PluginsConfigFilePath = Path.Combine(BakkesModPath, Constants.Steam.PluginsConfigFile);
 
+        private readonly Mock<IFileSystemProvider> _fileSystemProviderMock;
+
         private readonly Mock<ISteamService> _steamServiceMock;
 
         private readonly PathService _pathService;
 
         public PathServiceTests()
         {
+            _fileSystemProviderMock = new Mock<IFileSystemProvider>();
+
             _steamServiceMock = new Mock<ISteamService>();
             _steamServiceMock.Setup(steamService => steamService.GetSteamGamesPath())
                              .Returns(SteamPath);
 
-            _pathService = new PathService(_steamServiceMock.Object);
+            _pathService = new PathService(_fileSystemProviderMock.Object, _steamServiceMock.Object);
         }
 
         [Fact]
@@ -70,6 +75,36 @@
             string pluginsConfigFilePath = _pathService.PluginsConfigFilePath;
 
             Assert.Equal(PluginsConfigFilePath, pluginsConfigFilePath);
+        }
+
+        [Fact]
+        public void TestDllResourcePath()
+        {
+            string currentDirectory = SetupCurrentDirectory();
+
+            string dllResourcePath = _pathService.DllResourcePath;
+
+            string expectedDllResourcePath = Path.Combine(currentDirectory, Constants.ResourcesDirectory, Constants.DllName);
+            Assert.Equal(expectedDllResourcePath, dllResourcePath);
+        }
+
+        [Fact]
+        public void TestBakkesModInjectorResourcePath()
+        {
+            string currentDirectory = SetupCurrentDirectory();
+
+            string bakkesModInjectorResourcePath = _pathService.BakkesModInjectorResourcePath;
+
+            string expectedBakkesModInjectorResourcePath = Path.Combine(currentDirectory, Constants.ResourcesDirectory, Constants.BakkesModInjectorFile);
+            Assert.Equal(expectedBakkesModInjectorResourcePath, bakkesModInjectorResourcePath);
+        }
+
+        private string SetupCurrentDirectory()
+        {
+            const string currentDirectory = "Current";
+            _fileSystemProviderMock.SetupGet(fileSystemProvider => fileSystemProvider.CurrentDirectory)
+                                   .Returns(currentDirectory);
+            return currentDirectory;
         }
 
         private void VerifyGetSteamPathCalled()

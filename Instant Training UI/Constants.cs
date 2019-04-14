@@ -13,6 +13,8 @@
 
         public const string ResourcesDirectory = "Resources";
 
+        public const string BakkesModInjectorFile = "BakkesModInjector.exe";
+
         public static class Mod
         {
             public const string EnabledCvar = "instant_training_enabled";
