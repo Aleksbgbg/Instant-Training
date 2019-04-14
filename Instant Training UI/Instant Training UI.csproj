@@ -251,5 +251,9 @@
     <Resource Include="Images\Wasteland_P.png" />
     <Resource Include="Images\Wasteland_S_P.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Checkmark.png" />
+    <Resource Include="Images\Crossmark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
