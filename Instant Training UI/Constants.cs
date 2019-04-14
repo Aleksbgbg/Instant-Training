@@ -50,7 +50,7 @@
 
             public const string PluginsDirectory = "plugins";
 
-            public const string LoadPluginsFile = @"cfg\plugins.cfg";
+            public const string PluginsConfigFile = @"cfg\plugins.cfg";
         }
 
         public static readonly Dictionary<string, string> ArenaDevToInGameNameMappings = new Dictionary<string, string>

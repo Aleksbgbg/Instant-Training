@@ -92,8 +92,10 @@
     <Compile Include="Converters\ArenaNameToImageConverter.cs" />
     <Compile Include="Services\AppDataService.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\PathService.cs" />
     <Compile Include="Services\Interfaces\IAppDataService.cs" />
     <Compile Include="Services\Interfaces\IDataService.cs" />
+    <Compile Include="Services\Interfaces\IPathService.cs" />
     <Compile Include="Services\Interfaces\IRconService.cs" />
     <Compile Include="Services\Interfaces\ISetupService.cs" />
     <Compile Include="Services\Interfaces\ISteamService.cs" />

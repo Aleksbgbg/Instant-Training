@@ -31,6 +31,7 @@
             Container.Singleton<IRegistryProvider, RegistryProvider>();
             Container.Singleton<ISteamService, SteamService>();
 
+            Container.Singleton<IPathService, PathService>();
             Container.Singleton<ISetupService, SetupService>();
 
             Container.RegisterHandler(typeof(IWebSocket), null, container => new WebSocketAdapter($"ws://{Constants.RCON.Host}:{Constants.RCON.Port}/"));
