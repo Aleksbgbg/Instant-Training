@@ -23,6 +23,13 @@
       <Project>{b301490a-dd4b-485f-9003-9025984ffe9c}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameEndedEventHookTests.cpp" />
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{CFE2BBC0-DB9A-4BEB-8077-9AD1A35A355F}</ProjectGuid>
