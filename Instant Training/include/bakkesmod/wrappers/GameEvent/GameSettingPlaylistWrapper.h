@@ -28,8 +28,6 @@ public:
 	void SetbAllowForfeit(unsigned long newbAllowForfeit);
 	unsigned long GetbDisableRankedReconnect();
 	void SetbDisableRankedReconnect(unsigned long newbDisableRankedReconnect);
-	unsigned long GetbUsesAssignedTeams();
-	void SetbUsesAssignedTeams(unsigned long newbUsesAssignedTeams);
 	unsigned long GetbAllowClubs();
 	void SetbAllowClubs(unsigned long newbAllowClubs);
 	unsigned long GetbPlayersVSBots();

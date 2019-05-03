@@ -9,6 +9,7 @@ class BAKKESMOD_PLUGIN_IMPORT UnrealStringWrapper : public ArrayWrapper<wchar_t>
 public:
 	CONSTRUCTORS(UnrealStringWrapper)
 public:
+	bool IsNull();
 	std::string ToString();
 private:
 	PIMPL

@@ -142,6 +142,11 @@ struct SteamID
 	unsigned long long ID;
 };
 
+struct SkillRating {
+	float                                              Mu;                                               		// 0x0000 (0x0004) [0x0000000000000000]              
+	float                                              Sigma;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
 struct LinearColor
 {
 	float                                              R;                                                		// 0x0000 (0x0004) [0x0000000000000001]              ( CPF_Edit )

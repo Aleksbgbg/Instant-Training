@@ -2,13 +2,14 @@
 template<class T> class ArrayWrapper;
 template<typename T> class StructArrayWrapper;
 #include "../WrapperStructs.h"
-#include ".././Engine/ActorWrapper.h"
+#include ".././GameObject/TeamInfoWrapper.h"
 class WrapperStructs;
-class TeamGameEventWrapper;
 class PriWrapper;
 class UnrealStringWrapper;
+class ActorWrapper;
+class TeamGameEventWrapper;
 
-class BAKKESMOD_PLUGIN_IMPORT TeamWrapper : public ActorWrapper {
+class BAKKESMOD_PLUGIN_IMPORT TeamWrapper : public TeamInfoWrapper {
 public:
 	CONSTRUCTORS(TeamWrapper)
 

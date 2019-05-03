@@ -215,7 +215,6 @@ public:
 	void PushToTalkEnd();
 	void PushToTalk2();
 	void HandleJoinGameMigrationCompleted(unsigned long bSuccess, std::string FailReason);
-	void ClientNotifyServerShutdown();
 	void eventClientUnmutePlayer(SteamID& PlayerNetId);
 	void eventClientMutePlayer(SteamID& PlayerNetId, unsigned long bAddToMuteList);
 	void ClientSetOnlineStatus();

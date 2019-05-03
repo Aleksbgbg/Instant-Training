@@ -63,6 +63,7 @@
 #include "./GameObject/RumbleComponent/TimeBombPickup.h"
 #include "./GameObject/RumbleComponent/TornadoPickup.h"
 #include "./GameObject/RumbleComponent/VelcroPickup.h"
+#include "./GameObject/TeamInfoWrapper.h"
 #include "./GameObject/TeamWrapper.h"
 #include "./GameObject/VehiclePickupWrapper.h"
 #include "./GameObject/VehicleWrapper.h"
