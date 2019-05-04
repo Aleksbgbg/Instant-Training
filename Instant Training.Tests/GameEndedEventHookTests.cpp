@@ -2,19 +2,42 @@
 
 #include "../Instant Training/GameEndedEventHook.h"
 
-void FunctionStub()
+static void FunctionStub()
 {
 }
 
-TEST_CASE("Hook calls EventWrapper HookEvent")
+SCENARIO("GameEndedEventHook can be hooked and unhooked", "[GameEndedEventHook]")
 {
-	Mock<EventWrapper> eventWrapperMock;
-	Fake(Method(eventWrapperMock, HookEvent));
+	GIVEN("A GameEndedEventHook with an EventWrapper")
+	{
+		static constexpr const char* GameEndedHookString = "Function TAGame.GameEvent_Soccar_TA.EventMatchEnded";
 
-	EventWrapper& eventWrapper = eventWrapperMock.get();
+		Mock<EventWrapper> eventWrapperMock;
+		Fake(Method(eventWrapperMock, HookEvent).Using(GameEndedHookString, Any<std::function<void(std::string)>>()));
+		Fake(Method(eventWrapperMock, UnhookEvent).Using(GameEndedHookString));
 
-	GameEndedEventHook gameEndedHook{ eventWrapper };
-	gameEndedHook.Hook(FunctionStub);
+		EventWrapper& eventWrapper = eventWrapperMock.get();
 
-	Verify(Method(eventWrapperMock, HookEvent));
+		GameEndedEventHook gameEndedEventHook{ eventWrapper };
+
+		WHEN("Hook is called")
+		{
+			gameEndedEventHook.Hook(FunctionStub);
+
+			THEN("HookEvent is called on EventWrapper")
+			{
+				Verify(Method(eventWrapperMock, HookEvent));
+			}
+		}
+
+		WHEN("Unhook is called")
+		{
+			gameEndedEventHook.Unhook();
+
+			THEN("UnhookEvent is called on EventWrapper")
+			{
+				Verify(Method(eventWrapperMock, UnhookEvent));
+			}
+		}
+	}
 }

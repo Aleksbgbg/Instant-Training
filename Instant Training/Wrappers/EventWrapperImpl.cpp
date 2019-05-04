@@ -10,3 +10,8 @@ void EventWrapperImpl::HookEvent(const std::string& eventName, const std::functi
 {
 	gameWrapper->HookEvent(eventName, callback);
 }
+
+void EventWrapperImpl::UnhookEvent(const std::string& eventName) const
+{
+	gameWrapper->UnhookEvent(eventName);
+}

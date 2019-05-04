@@ -8,5 +8,6 @@ public:
 	virtual ~EventHook() = default;
 
 public:
-	virtual void Hook(const std::function<void()>& function) = 0;
+	virtual void Hook(const std::function<void()>& function) const = 0;
+	virtual void Unhook() const = 0;
 };

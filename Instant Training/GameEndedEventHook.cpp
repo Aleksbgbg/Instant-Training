@@ -2,18 +2,16 @@
 
 GameEndedEventHook::GameEndedEventHook(const EventWrapper& eventWrapper)
 	:
-	eventWrapper{ eventWrapper },
-	eventFunction{ nullptr }
+	eventWrapper{ eventWrapper }
 {
 }
 
-void GameEndedEventHook::Hook(const std::function<void()>& function)
+void GameEndedEventHook::Hook(const std::function<void()>& function) const
 {
-	eventFunction = &function;
-	eventWrapper.HookEvent(GameEndedHookString, std::bind(&GameEndedEventHook::EventHandler, this));
+	eventWrapper.HookEvent(GameEndedHookString, std::bind(function));
 }
 
-void GameEndedEventHook::EventHandler() const
+void GameEndedEventHook::Unhook() const
 {
-	(*eventFunction)();
+	eventWrapper.UnhookEvent(GameEndedHookString);
 }
