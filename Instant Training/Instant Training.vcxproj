@@ -19,15 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="GameEndedEventHook.cpp" />
     <ClCompile Include="InstantTraining.cpp" />
+    <ClCompile Include="LaunchMapEventHandler.cpp" />
     <ClCompile Include="Wrappers\CommandWrapperImpl.cpp" />
     <ClCompile Include="Wrappers\EventWrapperImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="EventHook.h" />
     <ClInclude Include="GameEndedEventHook.h" />
     <ClInclude Include="InstantTraining.h" />
+    <ClInclude Include="LaunchMapEventHandler.h" />
     <ClInclude Include="Wrappers\CommandWrapper.h" />
     <ClInclude Include="Wrappers\CommandWrapperImpl.h" />
     <ClInclude Include="Wrappers\EventWrapper.h" />

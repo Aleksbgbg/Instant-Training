@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEndedEventHookTests.cpp" />
+    <ClCompile Include="LaunchMapEventHandlerTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
