@@ -2,7 +2,9 @@
 
 #pragma comment(lib, "bakkesmod.lib")
 
-#include "bakkesmod/plugin/bakkesmodplugin.h"
+#include <bakkesmod/plugin/bakkesmodplugin.h>
+
+#include "ModBootstrapper.h"
 
 class InstantTraining final : public BakkesMod::Plugin::BakkesModPlugin
 {
@@ -11,21 +13,5 @@ public:
 	void onUnload() override;
 
 private:
-	void OnMatchEnded() const;
-
-	void PluginEnabledChanged();
-
-	void HookMatchEnded();
-	void UnhookMatchEnded();
-
-	void LogHookType(const char* const hookType) const;
-
-private:
-	static constexpr const char* MatchEndedEvent = "Function TAGame.GameEvent_Soccar_TA.EventMatchEnded";
-
-	static constexpr const char* EnabledCvarName = "instant_training_enabled";
-	static constexpr const char* TrainingMapCvarName = "instant_training_map";
-
-private:
-	bool hooked = false;
+	std::unique_ptr<ModBootstrapper> modBootstrapper;
 };
