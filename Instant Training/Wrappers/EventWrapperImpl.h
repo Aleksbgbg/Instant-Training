@@ -6,10 +6,10 @@
 
 #include "EventWrapper.h"
 
-class EventWrapperImpl : EventWrapper
+class EventWrapperImpl : public EventWrapper
 {
 public:
-	explicit EventWrapperImpl(const std::shared_ptr<GameWrapper> gameWrapper);
+	explicit EventWrapperImpl(std::shared_ptr<GameWrapper> gameWrapper);
 
 public:
 	void HookEvent(const std::string& eventName, const std::function<void(std::string)>& callback) const override;

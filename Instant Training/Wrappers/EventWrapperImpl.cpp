@@ -1,8 +1,10 @@
 #include "EventWrapperImpl.h"
 
-EventWrapperImpl::EventWrapperImpl(const std::shared_ptr<GameWrapper> gameWrapper)
+#include <utility>
+
+EventWrapperImpl::EventWrapperImpl(std::shared_ptr<GameWrapper> gameWrapper)
 	:
-	gameWrapper{ gameWrapper }
+	gameWrapper{ std::move(gameWrapper) }
 {
 }
 

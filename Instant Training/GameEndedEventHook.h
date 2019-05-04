@@ -3,7 +3,7 @@
 #include "EventHook.h"
 #include "Wrappers/EventWrapper.h"
 
-class GameEndedEventHook : EventHook
+class GameEndedEventHook : public EventHook
 {
 public:
 	explicit GameEndedEventHook(const EventWrapper& eventWrapper);

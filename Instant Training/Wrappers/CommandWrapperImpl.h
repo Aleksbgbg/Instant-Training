@@ -6,10 +6,10 @@
 
 #include <bakkesmod/wrappers/gamewrapper.h>
 
-class CommandWrapperImpl : CommandWrapper
+class CommandWrapperImpl : public CommandWrapper
 {
 public:
-	explicit CommandWrapperImpl(const std::shared_ptr<GameWrapper> gameWrapper);
+	explicit CommandWrapperImpl(std::shared_ptr<GameWrapper> gameWrapper);
 
 public:
 	void ExecuteCommand(const std::string& command) const override;

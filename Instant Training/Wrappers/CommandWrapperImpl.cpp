@@ -1,8 +1,10 @@
 #include "CommandWrapperImpl.h"
 
-CommandWrapperImpl::CommandWrapperImpl(const std::shared_ptr<GameWrapper> gameWrapper)
+#include <utility>
+
+CommandWrapperImpl::CommandWrapperImpl(std::shared_ptr<GameWrapper> gameWrapper)
 	:
-	gameWrapper{ gameWrapper }
+	gameWrapper{ std::move(gameWrapper) }
 {
 }
 

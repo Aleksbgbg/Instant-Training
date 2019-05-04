@@ -3,7 +3,7 @@
 #include "EventHandler.h"
 #include "Wrappers/CommandWrapper.h"
 
-class LaunchMapEventHandler : EventHandler
+class LaunchMapEventHandler : public EventHandler
 {
 public:
 	LaunchMapEventHandler(const CommandWrapper& commandWrapper, const EventHook& eventHook);
