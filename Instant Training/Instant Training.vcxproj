@@ -21,12 +21,15 @@
   <ItemGroup>
     <ClCompile Include="GameEndedEventHook.cpp" />
     <ClCompile Include="InstantTraining.cpp" />
+    <ClCompile Include="Wrappers\CommandWrapperImpl.cpp" />
     <ClCompile Include="Wrappers\EventWrapperImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventHook.h" />
     <ClInclude Include="GameEndedEventHook.h" />
     <ClInclude Include="InstantTraining.h" />
+    <ClInclude Include="Wrappers\CommandWrapper.h" />
+    <ClInclude Include="Wrappers\CommandWrapperImpl.h" />
     <ClInclude Include="Wrappers\EventWrapper.h" />
     <ClInclude Include="Wrappers\EventWrapperImpl.h" />
   </ItemGroup>
