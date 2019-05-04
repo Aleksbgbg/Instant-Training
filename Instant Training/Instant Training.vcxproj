@@ -23,6 +23,7 @@
     <ClCompile Include="GameEndedEventHook.cpp" />
     <ClCompile Include="InstantTraining.cpp" />
     <ClCompile Include="LaunchMapEventHandler.cpp" />
+    <ClCompile Include="ModBootstrapper.cpp" />
     <ClCompile Include="Wrappers\CommandWrapperImpl.cpp" />
     <ClCompile Include="Wrappers\EventWrapperImpl.cpp" />
   </ItemGroup>
@@ -32,6 +33,7 @@
     <ClInclude Include="GameEndedEventHook.h" />
     <ClInclude Include="InstantTraining.h" />
     <ClInclude Include="LaunchMapEventHandler.h" />
+    <ClInclude Include="ModBootstrapper.h" />
     <ClInclude Include="Wrappers\CommandWrapper.h" />
     <ClInclude Include="Wrappers\CommandWrapperImpl.h" />
     <ClInclude Include="Wrappers\EventWrapper.h" />
@@ -88,6 +90,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>InstantTraining</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>InstantTraining</TargetName>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
